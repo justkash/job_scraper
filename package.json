@@ -1,0 +1,27 @@
+{
+  "name": "jobscraper",
+  "version": "1.0.0",
+  "description": "This script scrapes various endpoints and logs the data into a google spreadsheet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "webpack",
+    "deploy": "npm run compile && cp ./appsscript.json ./dist/ && cp ./.clasp.json ./dist/ && cd dist && clasp push"
+  },
+  "author": "Akash Melethil",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "babel-loader": "^8.0.6",
+    "gas-webpack-plugin": "^1.0.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.7",
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
