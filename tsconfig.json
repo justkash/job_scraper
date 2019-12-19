@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "lib": ["esnext"],
     "experimentalDecorators": true,
-    "strictNullChecks": true,
-    "downlevelIteration" : true
+    "downlevelIteration" : true,
+    "types": ["google-apps-script"]
   }
 }
