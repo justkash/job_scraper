@@ -4,6 +4,7 @@
     "lib": ["esnext"],
     "experimentalDecorators": true,
     "downlevelIteration" : true,
-    "types": ["google-apps-script"]
+    "esModuleInterop": true,
+    "types": ["google-apps-script", "cheerio"]
   }
 }

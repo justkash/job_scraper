@@ -1,6 +1,11 @@
 {
   "timeZone": "America/New_York",
   "dependencies": {
+    "libraries": [{
+      "userSymbol": "cheerio",
+      "libraryId": "1ReeQ6WO8kKNxoaA_O0XEQ589cIrRvEBA9qcWpNqdOP17i47u6N9M5Xh0",
+      "version": "11"
+    }]
   },
   "exceptionLogging": "STACKDRIVER"
 }

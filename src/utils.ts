@@ -1,13 +1,13 @@
 export class CustomSet<T> implements Iterator<T> {
-    private data : Array<T>
-    private pointer : number
+    private data:Array<T>
+    private pointer:number
 
     constructor() {
         this.data = new Array<T>()
         this.pointer = 0
     }
 
-    public delete(item: T): boolean {
+    public delete(item:T):boolean {
         const index = this.data.indexOf(item)
         if (index < 0) return false
 
@@ -15,33 +15,43 @@ export class CustomSet<T> implements Iterator<T> {
         return true
     }
 
-    public has(item: T): boolean {
+    public has(item:T):boolean {
         return this.data.some((val) => val === item)
     }
 
-    public size(): number {
+    public size():number {
         return this.data.length
     }
 
-    public clear(): void {
+    public clear():void {
         this.pointer = 0
         this.data = new Array<T>()
     }
 
-    public forEach(callback: Function): void {
+    public forEach(callback:Function):void {
         for (let i = 0; i < this.data.length; ++i) {
-            callback(this.data[i], i, this)
+            callback(this.data[i], this)
         }
     }
 
-    public add(val: T): CustomSet<T> {
+    public add(val:T):CustomSet<T> {
         if (this.data.indexOf(val) < 0) this.data.push(val)
 
         return this
     }
 
+    public addSet(otherSet:CustomSet<T>):CustomSet<T> {
+        this.data.concat(otherSet.toArray())
+        
+        return this
+    }
+
+    public toArray():Array<T> {
+        return this.data
+    }
+
     /* Received the following error from GoogleScript 
-       ReferenceError: "Symbol" is not defined.
+       ReferenceError:"Symbol" is not defined.
     */
     /*
     public [Symbol.iterator]() {
@@ -51,30 +61,30 @@ export class CustomSet<T> implements Iterator<T> {
                 step++
                 if (step === this.data.length) {
                     return {
-                        done : true,
-                        value : null
+                        done :true,
+                        value :null
                     }
                 }
                 return {
-                    done : false,
-                    value : this.data[step]
+                    done :false,
+                    value :this.data[step]
                 }
             }
         }
         
     }*/
 
-    public next(): IteratorResult<T> {
+    public next():IteratorResult<T> {
         if (this.pointer < this.data.length) {
             return {
-                done : false,
-                value : this.data[this.pointer++]
+                done :false,
+                value :this.data[this.pointer++]
             }
         }
         else {
             return {
-                done : true,
-                value : null
+                done :true,
+                value :null
             }
         }
     }

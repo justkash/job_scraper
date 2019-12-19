@@ -21,7 +21,8 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "@types/cheerio": "^0.22.15",
     "@types/google-apps-script": "^1.0.7",
-    "cheerio": "^1.0.0-rc.3"
+    "chai": "^4.2.0"
   }
 }
