@@ -16,7 +16,7 @@ export class CustomSet<T> implements Iterator<T> {
     }
 
     public has(item:T):boolean {
-        return this.data.some((val) => val === item)
+        return this.data.includes(item)
     }
 
     public size():number {
@@ -41,13 +41,17 @@ export class CustomSet<T> implements Iterator<T> {
     }
 
     public addSet(otherSet:CustomSet<T>):CustomSet<T> {
-        this.data.concat(otherSet.toArray())
+        this.data = this.data.concat(otherSet.toArray())
         
         return this
     }
 
     public toArray():Array<T> {
         return this.data
+    }
+
+    public toString():string {
+        return this.data.join(", ")
     }
 
     /* Received the following error from GoogleScript 
@@ -88,4 +92,44 @@ export class CustomSet<T> implements Iterator<T> {
             }
         }
     }
+}
+
+function isolateAverageSalaryFromString(str:string, pattern:RegExp):number {
+    const results = str.matchAll(pattern)
+    let salarySum = 0
+    let count = 0
+    for (let { value: result, done } = results.next(); done === false; {value: result, done} = results.next()) {
+        salarySum += Number(result[1])
+		count++
+    }
+    return (salarySum / count)
+}
+
+const dateRegex = /(yesterday)|(\d+)(h|d)/gi
+function extractDateFromAgoString(str:string):Date {
+    let now:Date = new Date()
+    const results = str.matchAll(dateRegex)
+    for (let { value: result, done } = results.next(); done === false; {value: result, done} = results.next()) {
+        if (result[1] === undefined) {
+            const numHOrD:number = parseInt(result[2])
+            if (result[3] === "h") {
+                now.setHours(now.getHours() - numHOrD)
+                return now
+            }
+            else if (result[3] === "d") {
+                now.setDate(now.getDate() - numHOrD)
+                return now
+            }
+        }
+        else if (result[1] === "yesterday") {
+            now.setDate(now.getDate() - 1)
+            return now
+        }
+    }
+    return null
+}
+
+export {
+    isolateAverageSalaryFromString,
+    extractDateFromAgoString
 }
