@@ -1,4 +1,4 @@
-## Chaning Default Settings
+## Changing Default Settings
 For now, the changable settings for the scripts are hard coded as constants at the begining of the `main.ts` file. The `FOLDER_ID` is of particular importance since this value is used to identify which directory within Google Drive the created spreadsheet file will be put into. Change this value to the id of the folder of your choice before deploying the script. Note also that the `FILE_NAME` and `SHEET_NAME` values might also be of interest should you wish to change the default file and sheet names.
 
 ## Starting the Docker Image
