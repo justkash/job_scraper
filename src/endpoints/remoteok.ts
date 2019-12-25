@@ -27,7 +27,8 @@ function fetchDataFromRemoteOK():EndpointData {
             const deadlineDate:string = (new Date(details["validThrough"])).toDateString()
             title = details["title"]
             const companyName:string = details["hiringOrganization"]["name"]
-            const companyLocation:string = details["jobLocation"]["address"]["addressCountry"]
+            const companyLocationStr:string = details["jobLocation"]["address"]["addressCountry"].trim()
+            const companyLocation = (companyLocationStr === "Anywhere"? "" : companyLocationStr)
             const compensation:string = details["baseSalary"]["value"]
             const experienceLevel:string = ""
             const description:string = tags + details["description"]

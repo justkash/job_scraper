@@ -1,7 +1,7 @@
 import { EndpointData, fetchDataFromEndpointURL, retrieveTagsFromString } from "./endpoint"
 import { isolateAverageSalaryFromString, extractDateFromAgoString } from "../utils"
 
-const STACKOVERFLOW_MAX_NUM_RECORDS = 15
+const STACKOVERFLOW_MAX_NUM_RECORDS = 20
 const STACKOVERFLOW_BASE_URL = "https://stackoverflow.com"
 const STACKOVERFLOW_DATA_URL = STACKOVERFLOW_BASE_URL + "/jobs?r=true&sort=p"
 const ID_PREFIX = "stackoverflow-"
@@ -24,7 +24,8 @@ function fetchDataFromStackoverflow():EndpointData {
 
         const companyDetailsBlock = rowDataBlock.find("h3 span")
         const companyName:string = companyDetailsBlock.first().text().trim()
-        const companyLocation:string = companyDetailsBlock.last().text().trim()
+        const companyLocationStr:string = companyDetailsBlock.last().text().trim()
+        const companyLocation:string = (companyLocationStr === "No office location"? "" : companyLocationStr)
 
         const tagsList:string[] = []
         rowDataBlock.find("div a.post-tag").each(function(index) {
@@ -46,8 +47,10 @@ function fetchDataFromStackoverflow():EndpointData {
         tagsSet.addSet(tagsListSet)
 
         const deadlineDate = ""
-        const compensation = (isolateAverageSalaryFromString(compensationStr, SALARY_REGEXP)*1000).toString(10)
-        const experienceLevel = detailsAboutContent.find("div.mb8").eq(1).find("span").last().text()
+        const compensationNum = (isolateAverageSalaryFromString(compensationStr, SALARY_REGEXP)*1000)
+        const compensation = (isNaN(compensationNum)? "" : compensationNum.toString(10))
+        const experienceLevelBlock = detailsAboutContent.find("div.mb8").eq(1).find("span")
+        const experienceLevel = (experienceLevelBlock.first().text().trim() === "Experience level:"? experienceLevelBlock.last().text().trim() : "") 
         const keyQualifications = tagsSet.toArray().join(", ")
         const commitmentStr = detailsAboutContent.find("div.mb8").first().find("span").last().text()
         const commitment = (commitmentStr === "Full-time"? "Full Time":commitmentStr)
