@@ -26,7 +26,7 @@ function retrieveTagsFromStringWithPattern(str: string, pattern: RegExp):CustomS
     const tags:CustomSet<string> = new CustomSet()
     const results = str.matchAll(pattern)
     for (let { value: result, done } = results.next(); done === false; {value: result, done} = results.next()) {
-        const val = result[1].toLowerCase()
+        const val = result[1].toLowerCase().trim()
         if (val in TAG_ALIASES) {
             tags.add(TAG_ALIASES[val].toLowerCase())
         }

@@ -35,14 +35,16 @@ export class CustomSet<T> implements Iterator<T> {
     }
 
     public add(val:T):CustomSet<T> {
-        if (this.data.indexOf(val) < 0) this.data.push(val)
+        if (!this.has(val)) this.data.push(val)
 
         return this
     }
 
     public addSet(otherSet:CustomSet<T>):CustomSet<T> {
-        this.data = this.data.concat(otherSet.toArray())
-        
+        otherSet.forEach((item) => {
+            this.add(item)
+        })
+
         return this
     }
 

@@ -1,3 +1,13 @@
+## Goals
+The goal for this project is to aid in selecting the best job postings to apply for and to also identify the topic areas that are highest in demand for employers. Some of the questions that this project attemps to answer are the following:
+- Which jobs offer the most competitive compensation?
+- Which qualifications have the highest demand?
+- Where are companies looking for remote employees located?
+
+The resulting data from this project can be aggregated into a dashboard as shown in the image below to answer the outlined questions.
+
+![Dashboard built using the scraped data](./static/scraper_dashboard.png?raw=true)
+
 ## Changing Default Settings
 For now, the changable settings for the scripts are hard coded as constants at the begining of the `main.ts` file. The `FOLDER_ID` is of particular importance since this value is used to identify which directory within Google Drive the created spreadsheet file will be put into. Change this value to the id of the folder of your choice before deploying the script. Note also that the `FILE_NAME` and `SHEET_NAME` values might also be of interest should you wish to change the default file and sheet names.
 

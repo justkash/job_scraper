@@ -1,9 +1,3 @@
-/*
- *                   main
- *                    |
- *               +----+---
- */
-
 import {
     testRetrieveTagsFromString,
     testIsolateTagsFromTagString
@@ -24,8 +18,8 @@ const FOLDER_ID = "1YVIMzVwIo19nqsjKfUg8Y03Q2rWpX6lt"
 const FILENAME = "Remote Job Listings"
 const SHEET_NAME = "Raw Data"
 const HEADINGS = [["ID", "Posting Date","Deadline Date", "Title", "Company", "Company Location", "Compensation (USD/Year)", "Experience Level", "Key Qualifications", "Commitment", "Hours", "Applied Date"]];
-const ID_INDEX = 0
-const LINKS_INDEX = 3
+const ID_INDEX = HEADINGS[0].indexOf("ID")
+const LINKS_INDEX = HEADINGS[0].indexOf("Title")
 
 declare let global:any
 

@@ -1,7 +1,7 @@
 import { EndpointData, fetchDataFromEndpointURL, retrieveTagsFromString } from "./endpoint"
 import { isolateAverageSalaryFromString, extractDateFromAgoString } from "../utils"
 
-const STACKOVERFLOW_MAX_NUM_RECORDS = 20
+const STACKOVERFLOW_MAX_NUM_RECORDS = 22
 const STACKOVERFLOW_BASE_URL = "https://stackoverflow.com"
 const STACKOVERFLOW_DATA_URL = STACKOVERFLOW_BASE_URL + "/jobs?r=true&sort=p"
 const ID_PREFIX = "stackoverflow-"
