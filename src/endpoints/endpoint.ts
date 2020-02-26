@@ -66,6 +66,7 @@ function isolateTagsFromTagString(str: string, delim: string): CustomSet<string>
 }
 
 function fetchDataFromEndpointURL(url: string):CheerioStatic {
+    if (!url) return
     const html:string = UrlFetchApp.fetch(url).getContentText()
     return cheerio.load(html)
 }

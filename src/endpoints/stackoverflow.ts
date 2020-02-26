@@ -1,7 +1,7 @@
 import { EndpointData, fetchDataFromEndpointURL, retrieveTagsFromString } from "./endpoint"
 import { isolateAverageSalaryFromString, extractDateFromAgoString } from "../utils"
 
-const STACKOVERFLOW_MAX_NUM_RECORDS = 22
+const STACKOVERFLOW_MAX_NUM_RECORDS = 100
 const STACKOVERFLOW_BASE_URL = "https://stackoverflow.com"
 const STACKOVERFLOW_DATA_URL = STACKOVERFLOW_BASE_URL + "/jobs?r=true&sort=p"
 const ID_PREFIX = "stackoverflow-"
@@ -17,10 +17,12 @@ function fetchDataFromStackoverflow():EndpointData {
         const rowData = []
 
         const id:string = ID_PREFIX + row.attr("data-jobid")
-        const toURL:string = STACKOVERFLOW_BASE_URL + row.children("a").attr("href")
+        const jobURL:string = row.find("a.s-link").attr("href")
+        if (!jobURL) return
+        const toURL:string = STACKOVERFLOW_BASE_URL + jobURL
 
         const rowDataBlock = row.find("div.fl1").first()
-        const title:string = rowDataBlock.children("h2").first().text()
+        const title:string = rowDataBlock.children("h2").first().text().trim()
 
         const companyDetailsBlock = rowDataBlock.find("h3 span")
         const companyName:string = companyDetailsBlock.first().text().trim()
@@ -75,6 +77,8 @@ function fetchDataFromStackoverflow():EndpointData {
 
         if (index == STACKOVERFLOW_MAX_NUM_RECORDS) return false
     })
+
+    Logger.log("# of Records: " + data.length)
 
     return {
         data: data,

@@ -1,6 +1,6 @@
 import { EndpointData, fetchDataFromEndpointURL, retrieveTagsFromString } from "./endpoint"
 
-const REMOTEOK_MAX_NUM_RECORDS = 100
+const REMOTEOK_MAX_NUM_RECORDS = 500
 const REMOTEOK_BASE_URL = "https://remoteok.io"
 const REMOTEOK_DATA_URL = REMOTEOK_BASE_URL + "/remote-dev-jobs/"
 const ID_PREFIX = "remoteok-"
@@ -26,16 +26,16 @@ function fetchDataFromRemoteOK():EndpointData {
             const postingDate:string = (new Date(details["datePosted"])).toDateString()
             const deadlineDate:string = (new Date(details["validThrough"])).toDateString()
             title = details["title"]
-            const companyName:string = details["hiringOrganization"]["name"]
+            const companyName:string = details["hiringOrganization"]["name"].trim()
             const companyLocationStr:string = details["jobLocation"]["address"]["addressCountry"].trim()
-            const companyLocation = (companyLocationStr === "Anywhere"? "" : companyLocationStr)
-            const compensation:string = details["baseSalary"]["value"]
+            const companyLocation = (companyLocationStr === "Anywhere"? "" : companyLocationStr.trim())
+            const compensation:string = details["baseSalary"]["value"].trim()
             const experienceLevel:string = ""
-            const description:string = tags + details["description"]
+            const description:string = tags + details["description"].trim()
             const keyQualifications:string = retrieveTagsFromString(description).toArray().join(", ")
-            const commitmentStr:string = details["employmentType"]
-            const commitment:string = (commitmentStr === "FULL_TIME"? "Full Time":commitmentStr)
-            const hours:string = details["workHours"]
+            const commitmentStr:string = details["employmentType"].trim()
+            const commitment:string = (commitmentStr === "FULL_TIME"? "Full Time":commitmentStr.trim())
+            const hours:string = details["workHours"].trim()
             const appliedDate:string = ""
 
             rowData.push(postingDate)
@@ -60,6 +60,8 @@ function fetchDataFromRemoteOK():EndpointData {
 
         if (index == REMOTEOK_MAX_NUM_RECORDS) return false
     })
+
+    Logger.log("# of Records: " + remoteOKData.length)
 
     return {
         data: remoteOKData,
